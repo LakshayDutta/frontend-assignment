@@ -15,11 +15,9 @@ const useGetKickStartersQuery = () => {
     const initApiCall = async () => {
       try {
         setLoading(true);
-        // const response = await fetch(KICKSTARTER_PROJECTS_API_URL);
-        // const data = await response.json();
-        // setData(data);
-
-        setData(KICKSTARTER_PROJECTS);
+        const response = await fetch(KICKSTARTER_PROJECTS_API_URL);
+        const data = await response.json();
+        setData(data);
       } catch {
         // API call error, fallback to mocks
         setData(KICKSTARTER_PROJECTS);
@@ -50,29 +48,30 @@ const TABLE_HEADERS = {
 export const Home = () => {
   const { data, loading } = useGetKickStartersQuery();
 
-  if (loading) {
-    return <p>loading....</p>;
-  }
   return (
     <div className="home">
-      {data.length ? (
-        <>
-          <Table
-            columns={Object.values(TABLE_HEADERS)}
-            data={data.map((each) => ({
-              [TABLE_HEADERS.SERIAL_NUMBER]: each[TABLE_KEYS.SERIAL_NUMBER],
-              [TABLE_HEADERS.PERCENTAGE_FUNDED]:
-                each[TABLE_KEYS.PERCENTAGE_FUNDED] + "%",
-              [TABLE_HEADERS.AMOUNT_PLEDGED]: new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(each[TABLE_KEYS.AMOUNT_PLEDGED]),
-            }))}
-          />
-        </>
-      ) : (
-        <p>nothing to show</p>
-      )}
+      {(() => {
+        if (loading) return <p>loading...</p>;
+        return data.length ? (
+          <>
+            <h1>Front End Assignment</h1>
+            <Table
+              columns={Object.values(TABLE_HEADERS)}
+              data={data.map((each) => ({
+                [TABLE_HEADERS.SERIAL_NUMBER]: each[TABLE_KEYS.SERIAL_NUMBER],
+                [TABLE_HEADERS.PERCENTAGE_FUNDED]:
+                  each[TABLE_KEYS.PERCENTAGE_FUNDED] + "%",
+                [TABLE_HEADERS.AMOUNT_PLEDGED]: new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(each[TABLE_KEYS.AMOUNT_PLEDGED]),
+              }))}
+            />
+          </>
+        ) : (
+          <p>nothing to show</p>
+        );
+      })()}
     </div>
   );
 };

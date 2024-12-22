@@ -1,2 +1,9 @@
 .home {
+  padding-top: 100px;
+}
+
+.home > h1,
+.home > p {
+  text-align: center;
+  color: var(--blue-4);
 }

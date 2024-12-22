@@ -1,6 +1,7 @@
 .table {
   height: 430px;
-  width: 900px;
+  max-width: 900px;
+  min-width: 600px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -17,6 +18,8 @@
 .table__header > .table__row:hover {
   background: none;
   cursor: initial;
+  transform: none;
+  box-shadow: none;
 }
 
 .table__body {
@@ -31,11 +34,14 @@
   display: flex;
   border-bottom: 1px solid var(--grey-2);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.4s;
 }
 
 .table__row:hover {
   background-color: var(--blue-1);
+  border-color: var(--blue-1);
+  box-shadow: var(--shadow-1);
+  transform: scale(1.005);
 }
 
 .table__cell {
@@ -90,7 +96,7 @@
   border: 1px solid var(--blue-1);
   background-color: var(--blue-1);
   box-shadow: 0 1px 2px var(--blue-1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
   margin: 0 5px;
   cursor: pointer;
   outline-color: var(--blue-2);
@@ -103,7 +109,6 @@
 
 .table__footer #previousButtons {
   display: inline-flex;
-  /* flex-direction: row-reverse; */
 }
 
 .table__footer #nextButtons {

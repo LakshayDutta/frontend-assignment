@@ -14,6 +14,10 @@ export const Table = ({ columns, data }) => {
   const [records, setRecords] = useState([]);
   const [controlMeta, setControlMeta] = useState("");
 
+  /**
+   * Logic used to update table controls and generating dynamic buttons based on what
+   * page the user is.
+   */
   const tableControl = useRef(null);
   const nextButton = useRef(null);
   const previousButton = useRef(null);
@@ -32,65 +36,73 @@ export const Table = ({ columns, data }) => {
       )} of ${totalRecords}`
     );
 
+    // logic for disabling the next button if we are at the end of the pagination.
     if (upperIndex >= totalRecords) {
       nextButton.current.setAttribute("disabled", true);
     } else {
       nextButton.current.removeAttribute("disabled");
     }
 
+    // logic for disabling the previous button if we are at the start of the pagination.
     if (lowerIndex <= 0) {
       previousButton.current.setAttribute("disabled", true);
     } else {
       previousButton.current.removeAttribute("disabled");
     }
 
+    // dynamically generates "previous" buttons
     let previousButtonsInnerHTML = "";
     Array.from(new Array(Math.min(currentPage - 1, dynamicButtons))).forEach(
       (_, i) => {
         const buttonPage = currentPage - 1 - i;
         previousButtonsInnerHTML =
           `
-          <button id="button-to-${buttonPage}">${buttonPage}</button>
+          <button id="button-to-${buttonPage}" title="page ${buttonPage}">${buttonPage}</button>
         ` + previousButtonsInnerHTML;
       }
     );
     previousButtons.current.innerHTML = previousButtonsInnerHTML;
 
+    // dynamically generates "next" buttons
     let nextButtonsInnerHTML = "";
     Array.from(
       new Array(Math.min(totalPages - currentPage, dynamicButtons))
     ).forEach((_, i) => {
       const buttonPage = currentPage + 1 + i;
       nextButtonsInnerHTML += `
-          <button id="button-to-${buttonPage}">${buttonPage}</button>
+          <button id="button-to-${buttonPage}" title="page ${buttonPage}">${buttonPage}</button>
         `;
     });
     nextButtons.current.innerHTML = nextButtonsInnerHTML;
   };
 
   useEffect(() => {
-    if (tableControl.current) {
-      tableControl.current.addEventListener("click", (e) => {
-        if (e.target.id.includes("button-to")) {
-          switch (e.target.id) {
-            case "button-to-previous": {
-              setCurrentPage((prev) => prev - 1);
-              break;
-            }
-            case "button-to-next": {
-              setCurrentPage((prev) => prev + 1);
-              break;
-            }
-            default: {
-              const page = Number(e.target.id.split("-").pop());
-              setCurrentPage(page);
-            }
+    const handleClick = (e) => {
+      if (e.target.id.includes("button-to")) {
+        switch (e.target.id) {
+          case "button-to-previous": {
+            setCurrentPage((prev) => prev - 1);
+            break;
+          }
+          case "button-to-next": {
+            setCurrentPage((prev) => prev + 1);
+            break;
+          }
+          default: {
+            const page = Number(e.target.id.split("-").pop());
+            setCurrentPage(page);
           }
         }
-      });
+      }
+    };
+    if (tableControl.current) {
+      tableControl.current.addEventListener("click", handleClick);
     }
+
+    return () => tableControl.current.removeEventListener("click", handleClick);
   }, []);
 
+  // single point of state updation
   useEffect(() => {
     updateTable();
   }, [currentPage]);
