@@ -1,5 +1,12 @@
 # Frontend Assignment
 
+## deployment
+https://lakshaydutta.github.io/frontend-assignment/
+
+## steps to run
+1. Install nvm, and do `nvm use`
+2. Run `yarn`
+3. Run `yarn dev` to start local server
 
 ## Assignment
 
