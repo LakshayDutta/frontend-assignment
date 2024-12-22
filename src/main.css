@@ -1,0 +1,36 @@
+/* global CSS */
+
+/* colors */
+:root {
+  --white: #fff;
+  --text: #eeedeb;
+
+  --grey-1: #f8f9fa;
+  --grey-2: #e9ecef;
+  --grey-3: #dee2e6;
+  --grey-4: #ced4da;
+
+  --blue-1: #c5d8e2;
+  --blue-2: #87adc6;
+  --blue-3: #5594cc;
+  --blue-4: #356389;
+  --blue-5: #1c2344;
+
+  --shadow-1: 0 2px 3px var(--grey-4);
+  --shadow-2: 0 2px 5px var(--blue-1);
+  --shadow-3: 0 1px 2px var(--grey-3);
+
+}
+
+/* fonts */
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("../src/fonts/Roboto/Roboto-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Roboto-Regular", sans-serif;
+  box-sizing: border-box;
+}

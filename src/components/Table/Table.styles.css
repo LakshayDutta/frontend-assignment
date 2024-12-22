@@ -1,0 +1,111 @@
+.table {
+  height: 430px;
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: var(--blue-2);
+  border-radius: 10px;
+  box-shadow: var(--shadow-1);
+}
+
+.table__header {
+  flex: 1;
+  border-radius: 10px;
+}
+
+.table__header > .table__row:hover {
+  background: none;
+  cursor: initial;
+}
+
+.table__body {
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--grey-1);
+}
+
+.table__row {
+  display: flex;
+  border-bottom: 1px solid var(--grey-2);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.table__row:hover {
+  background-color: var(--blue-1);
+}
+
+.table__cell {
+  flex: 1;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table__cell::after {
+  content: "";
+  position: absolute;
+  height: 80%;
+  width: 1px;
+  background-color: var(--grey-3);
+  top: 10%;
+  right: 0;
+}
+
+.table__row > .table__cell:last-child::after {
+  display: none;
+}
+
+.table__footer {
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table__footer .table__footer-previous-buttons,
+.table__footer .table__footer-next-buttons {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.table__footer .table__footer-meta {
+  flex: 6;
+  text-align: center;
+}
+
+.table__footer button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  border: 1px solid var(--blue-1);
+  background-color: var(--blue-1);
+  box-shadow: 0 1px 2px var(--blue-1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 5px;
+  cursor: pointer;
+  outline-color: var(--blue-2);
+}
+
+.table__footer button:hover {
+  background-color: var(--blue-2);
+  box-shadow: 0 1px 2px var(--blue-3);
+}
+
+.table__footer #previousButtons {
+  display: inline-flex;
+  /* flex-direction: row-reverse; */
+}
+
+.table__footer #nextButtons {
+  display: inline-flex;
+}
